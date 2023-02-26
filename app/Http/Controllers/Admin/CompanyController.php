@@ -19,7 +19,7 @@ class CompanyController extends Controller
     public function index()
     {
         try{
-            $companies = Company::paginate();
+            $companies = Company::paginate(1);
             return view('admin.companies.index', compact('companies'));
         }catch(Exception $exception){
             return redirect()->back()->with('error', $exception->getMessage());

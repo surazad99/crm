@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="route('companies.index')">Companies</a></li>
-    <li class="breadcrumb-item active">List</li>
+    <li class="breadcrumb-item active">Edit</li>
 @endsection
 
 @section('content')

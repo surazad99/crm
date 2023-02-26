@@ -36,11 +36,10 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href=" {{route('companies.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-building"></i>
               <p>
                 Companies
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>

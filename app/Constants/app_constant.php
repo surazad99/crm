@@ -1,5 +1,5 @@
 <?php
 
 
-define('PAGINATE', 10);
+define('PAGINATE', 1);
 define('COMPANY_LOGO_URL', '/storage/company');

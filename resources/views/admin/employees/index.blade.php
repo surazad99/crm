@@ -2,15 +2,17 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="route('companies.index')">Companies</a></li>
-    <li class="breadcrumb-item active">List</li>
+    <li class="breadcrumb-item active"> {{ $company->name }}</li>
+    <li class="breadcrumb-item active"><a href= "{{ route('companies.employees.index', $company)}}">Employees</a> </li>
+    <li class="breadcrumb-item active">list</li>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Companies</h3>
+            <h3 class="card-title">Employees of {{ $company->name }}</h3>
             <div class="card-tools">
-                <a href="{{ route('companies.create') }}" class="btn btn-success">Add Company</a>
+                <a href="{{ route('companies.employees.create', $company) }}" class="btn btn-success">Create</a>
             </div>
         </div>
         <!-- /.card-header -->
@@ -18,53 +20,48 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Company</th>
                         <th>Email</th>
-                        <th>Logo</th>
-                        <th>Website</th>
+                        <th>Phone</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($companies as $company)
+                    @foreach ($employees as $employee)
                         <tr>
-                            <td>{{ $company->name }}</td>
-                            <td>{{ $company->email }}</td>
+                            <td>{{ $employee->first_name }}</td>
+                            <td>{{ $employee->last_name }}</td>
+                           
+                            <td>{{  $employee->company->name }}</td>
+                            <td>{{  $employee->email }}</td>
+                            <td>{{  $employee->phone_number }}</td>
                             <td>
-                                @if ($company->logo)
-                                    {{-- @dd(asset(COMPANY_LOGO_URL.'/'.$company->logo)); --}}
-                                    <img src="{{ asset(COMPANY_LOGO_URL . '/' . $company->logo) }}" alt="{{ $company->name }}"
-                                        width="50">
-                                @else
-                                    N/A
-                                @endif
-                            </td>
-                            <td>{{ $company->website }}</td>
-                            <td>
-                                <a href="{{ route('companies.show', $company) }}" class="btn btn-sm btn-primary">View</a>
-                                <a href="{{ route('companies.edit', $company) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('companies.employees.show', [$company, $employee]) }}" class="btn btn-sm btn-primary">View</a>
+                                <a href="{{ route('companies.employees.edit', [$company, $employee]) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                                    data-target="#deleteModal{{ $company->id }}">Delete</button>
+                                    data-target="#deleteModal{{ $employee->id }}">Delete</button>
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteModal{{ $company->id }}" tabindex="-1"
-                                    aria-labelledby="deleteModalLabel{{ $company->id }}" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal{{ $employee->id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel{{ $employee->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel{{ $company->id }}">Delete
-                                                    Company</h5>
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $employee->id }}">Delete
+                                                    Employee</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Are you sure you want to delete {{ $company->name }}?
+                                                Are you sure you want to delete {{ $employee->name }}?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Cancel</button>
-                                                <form action="{{ route('companies.destroy', $company) }}" method="POST">
+                                                <form action="{{ route('companies.employees.destroy', [$company, $employee]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -73,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('companies.employees.index', $company) }}" class="btn btn-sm btn-info">Employees</a>
                             </td>
                         </tr>
                     @endforeach
@@ -82,7 +78,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
-            {{ $companies->links() }}
+            {{ $employees->links() }}
         </div>
     </div>
     <!-- /.card -->
