@@ -9,6 +9,7 @@ use App\Models\Company;
 use Exception;
 use Illuminate\Http\Request;
 
+
 class CompanyController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class CompanyController extends Controller
     public function index()
     {
         try{
-            $companies = Company::paginate(1);
+            $companies = Company::latest()->paginate(PAGINATE);
             return view('admin.companies.index', compact('companies'));
         }catch(Exception $exception){
             return redirect()->back()->with('error', $exception->getMessage());
@@ -51,7 +52,9 @@ class CompanyController extends Controller
     {
         $validatedCompany = $companyCreateRequest->validated();
         try{
-            $validatedCompany['logo'] = storeImage($validatedCompany['logo'], COMPANY_LOGO_URL);
+            if(isset($validatedCompany['logo'])){
+                $validatedCompany['logo'] = storeImage($validatedCompany['logo'], COMPANY_LOGO_URL);
+            }
             Company::create($validatedCompany);
             return redirect()->route('companies.index')->with('success', 'Company created successfully.');
         }catch(Exception $exception){

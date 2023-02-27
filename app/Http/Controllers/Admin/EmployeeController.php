@@ -19,14 +19,14 @@ class EmployeeController extends Controller
      */
     public function all()
     {
-        // try{
+        try{
             $employees = Employee::latest()->paginate(PAGINATE);
             return view('admin.employees.all', compact('employees'));
 
-        // }catch(Exception $exception){
+        }catch(Exception $exception){
             return redirect()->back()->with('exception', $exception->getMessage());
 
-        // }
+        }
     }
 
     /**
