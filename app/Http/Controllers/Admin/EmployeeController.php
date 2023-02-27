@@ -12,6 +12,23 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        // try{
+            $employees = Employee::latest()->paginate(PAGINATE);
+            return view('admin.employees.all', compact('employees'));
+
+        // }catch(Exception $exception){
+            return redirect()->back()->with('exception', $exception->getMessage());
+
+        // }
+    }
+
     /**
      * Display a listing of the resource.
      *

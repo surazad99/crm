@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\EmployeeController;
+use Egulias\EmailValidator\Warning\EmailTooLong;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('companies', CompanyController::class);
 Route::resource('companies.employees', EmployeeController::class);
+Route::get('employees/all', [EmployeeController::class, 'all'])->name('employees.all');

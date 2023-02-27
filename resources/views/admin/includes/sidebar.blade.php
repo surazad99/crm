@@ -45,11 +45,10 @@
           </li>
 
         <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('employees.all') }}" class="nav-link">
+              <i class="nav-icon fas fa-regular fa-user"></i>
               <p>
                 Employees
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
         </li>
