@@ -37,8 +37,8 @@ Starts the laravel server at http://localhost:8000\
 
 ### `Login with the following credentials`
 Login using following credentials or you can sign up anytime\
-email:user@gmail.com\
-password:User@12345
+email:admin@admin.com
+password:password
 
 ### `php artisan test`
 Runs the unit test cases
